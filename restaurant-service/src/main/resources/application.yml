@@ -1,0 +1,14 @@
+server:
+  port: 8091
+
+spring:
+  application:
+    name: restaurant-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/restaurantdb
+    username: root
+    password: mysql
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
