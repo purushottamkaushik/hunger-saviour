@@ -17,10 +17,10 @@ import java.util.List;
 public class RestaurantEntity {
 
     @Id
-    @SequenceGenerator(name = "rest_seq" , sequenceName = "restaurant sequence" ,initialValue = 20100 , allocationSize = 1)
-    @GeneratedValue(generator = "rest_seq" , strategy = GenerationType.SEQUENCE)
-            @Column(name = "restaurant_id")
-    Long restaurantId ;
+    @SequenceGenerator(name = "rest_seq", sequenceName = "restaurant sequence", initialValue = 20100, allocationSize = 1)
+    @GeneratedValue(generator = "rest_seq", strategy = GenerationType.SEQUENCE)
+    @Column(name = "restaurant_id")
+    Long restaurantId;
     @Column(name = "restaurant_name")
     String restaurantName;
     @Column(name = "rating")
@@ -34,6 +34,6 @@ public class RestaurantEntity {
     @JoinTable(name = "menu_types")
     List<String> menuTypes;
 
-    @OneToMany(mappedBy ="restaurant" )
+    @OneToMany(mappedBy = "restaurant")
     List<RestaurantMenuEntity> restaurantMenuEntity;
 }
