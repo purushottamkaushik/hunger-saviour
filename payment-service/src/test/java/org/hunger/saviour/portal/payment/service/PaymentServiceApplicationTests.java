@@ -1,10 +1,10 @@
-package org.hunger.saviour.portal.restaurant.service;
+package org.hunger.saviour.portal.payment.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RestaurantServiceApplicationTests {
+class PaymentServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

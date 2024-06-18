@@ -1,6 +1,5 @@
 package org.hunger.saviour.portal.restaurant.service.dtos;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -25,7 +24,7 @@ public class RestaurantMenuDto {
     @NotBlank(message = "menu image url must not be blank")
     String menuImageUrl;
     @NotNull(message = "menu item price must not be null")
-            @Positive(message = "menu item price must be greater than zero")
+    @Positive(message = "menu item price must be greater than zero")
     Double menuItemPrice;
 
     String rating;

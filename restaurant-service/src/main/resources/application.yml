@@ -5,10 +5,12 @@ spring:
   application:
     name: restaurant-service
   datasource:
-    url: jdbc:mysql://localhost:3306/restaurantdb
+    url: jdbc:mysql://localhost:3306/restaurantdb?createIfNotExists=true
     username: root
     password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
