@@ -5,9 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.management.relation.Role;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,10 +19,9 @@ import java.util.Set;
 @Entity
 @Table(name = "users", uniqueConstraints =
         {
-                @UniqueConstraint(columnNames = "username"),
-                @UniqueConstraint(columnNames = "email")
+                @UniqueConstraint(columnNames = "username")
         })
-public class UserEntity {
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,15 +29,27 @@ public class UserEntity {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "email")
+//    @Column(name = "email")
 
-    private String email;
+//    private String email;
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
     @JoinTable(name = "user_role_mapping",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<RoleEntity> roles = new HashSet<>();
+    private List<RoleEntity> roles = new ArrayList<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> simpleGrantedAuthorityList = new ArrayList<>();
+
+        for (RoleEntity role : roles) {
+            simpleGrantedAuthorityList.add(new SimpleGrantedAuthority(role.getRole()));
+        }
+        return simpleGrantedAuthorityList;
+    }
+
+
 }

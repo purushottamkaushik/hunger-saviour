@@ -17,6 +17,10 @@ public class RoleEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
-    private ERole role;
+//    @Enumerated(EnumType.STRING)
+    private String role;
+
+    public RoleEntity(String role) {
+        this.role = role;
+    }
 }

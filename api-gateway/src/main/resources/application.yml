@@ -1,8 +1,9 @@
 server:
-  port: 9094
+  port: 9095
 spring:
   application:
-    name: order-service
+    name: api-gateway
+
 eureka:
   client:
     register-with-eureka: true
