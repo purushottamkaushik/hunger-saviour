@@ -1,5 +1,6 @@
 package org.hunger.saviour.portal.user.service.apis;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hunger.saviour.portal.user.service.config.jwt.JwtService;
 import org.hunger.saviour.portal.user.service.dtos.AuthRequest;
 import org.hunger.saviour.portal.user.service.entities.UserEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
+@Slf4j
 public class AuthAPI {
 
     @Autowired private AuthenticationManager authenticationManager;
@@ -29,11 +31,11 @@ public class AuthAPI {
     @PostMapping("/login")
     public String loginUser(@RequestBody AuthRequest authRequest) {
 
-        System.out.println("HELLOO");
+        log.debug("==========================HELLO========================================================");
         Authentication authentication = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername()
                 , authRequest.getPassword()));
 
-        System.out.println("Authentication PURUSHOTAAM: " + authentication);
+        log.debug("Authentication PURUSHOTAAM: " + authentication);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
       UserEntity userEntity =  (UserEntity) authentication.getPrincipal();

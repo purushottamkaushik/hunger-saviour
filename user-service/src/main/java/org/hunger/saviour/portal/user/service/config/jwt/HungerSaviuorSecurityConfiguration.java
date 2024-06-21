@@ -6,6 +6,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import jakarta.ws.rs.HttpMethod;
 import org.hunger.saviour.portal.user.service.dtos.RsaConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -57,19 +58,17 @@ public class HungerSaviuorSecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.cors(AbstractHttpConfigurer::disable)
+         http.cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers("/users/login").permitAll();
-                    request.anyRequest().permitAll();
-//                    authorizeHttpRequests.anyRequest().authenticated();
-                        })
-//                .authorizeHttpRequests(request -> request.anyRequest().authenticated())
+                    request.requestMatchers(HttpMethod.POST,"/users/login").permitAll();
+                    request.anyRequest().authenticated();
+                })
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2ResourceServer->oauth2ResourceServer.jwt(jwt-> jwt.decoder(jwtDecoder())))
                 .userDetailsService(userDetailsService)
-                .httpBasic(Customizer.withDefaults())
-                .build();
+                .httpBasic(Customizer.withDefaults());
+         return http.build();
     }
 
     @Bean

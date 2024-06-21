@@ -17,16 +17,13 @@ import java.util.*;
 @Data
 @Builder
 @Entity
-@Table(name = "users", uniqueConstraints =
-        {
-                @UniqueConstraint(columnNames = "username")
-        })
+@Table(name = "users")
 public class UserEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "username")
+    @Column(name = "username" , unique = true)
     private String username;
 
 //    @Column(name = "email")

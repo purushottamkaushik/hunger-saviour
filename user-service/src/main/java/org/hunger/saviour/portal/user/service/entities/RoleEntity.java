@@ -9,19 +9,18 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Data
-@EqualsAndHashCode
 @Entity
 @Table(name = "roles")
 public class RoleEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
 //    @Enumerated(EnumType.STRING)
     private String role;
 
-//    @ManyToMany
-//    private List<UserEntity> userEntities;
+    @ManyToMany(mappedBy = "roles" ,fetch = FetchType.EAGER)
+    private List<UserEntity> userEntities;
 
     public RoleEntity(String role) {
         this.role = role;

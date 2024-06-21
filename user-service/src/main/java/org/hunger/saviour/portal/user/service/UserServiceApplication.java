@@ -31,7 +31,7 @@ public class UserServiceApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if (((List)userRepository.findAll()).isEmpty()){
+
             UserEntity user = UserEntity.builder()
                     .username("purushottam")
                     .password(passwordEncoder.encode("password"))
@@ -39,7 +39,7 @@ public class UserServiceApplication implements CommandLineRunner {
                     .build();
             userRepository.save(user);
             System.out.println("USER SAVEDDDDD");
-        }
+
 
     }
 }
