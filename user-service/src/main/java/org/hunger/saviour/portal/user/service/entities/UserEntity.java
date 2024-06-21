@@ -35,7 +35,7 @@ public class UserEntity implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER )
     @JoinTable(name = "user_role_mapping",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -49,6 +49,26 @@ public class UserEntity implements UserDetails {
             simpleGrantedAuthorityList.add(new SimpleGrantedAuthority(role.getRole()));
         }
         return simpleGrantedAuthorityList;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
 

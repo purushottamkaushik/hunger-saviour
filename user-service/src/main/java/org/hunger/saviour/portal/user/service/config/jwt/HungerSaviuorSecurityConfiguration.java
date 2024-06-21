@@ -30,6 +30,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
@@ -55,13 +56,15 @@ public class HungerSaviuorSecurityConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector handlerMappingIntrospector) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorizeHttpRequests -> {
-                    authorizeHttpRequests.requestMatchers("/users/login", "/users/signup").permitAll();
-                    authorizeHttpRequests.anyRequest().authenticated();
-                })
+                .authorizeHttpRequests(request -> {
+                    request.requestMatchers("/users/login").permitAll();
+                    request.anyRequest().permitAll();
+//                    authorizeHttpRequests.anyRequest().authenticated();
+                        })
+//                .authorizeHttpRequests(request -> request.anyRequest().authenticated())
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2ResourceServer->oauth2ResourceServer.jwt(jwt-> jwt.decoder(jwtDecoder())))
                 .userDetailsService(userDetailsService)
