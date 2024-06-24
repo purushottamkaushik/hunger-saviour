@@ -37,5 +37,5 @@ public class RestaurantDto {
     List<String> menuTypes;
     @NotNull
     @NotEmpty
-    List<RestaurantMenuEntity> restaurantMenuEntity;
+    List<RestaurantMenuDto> menuDtos;
 }

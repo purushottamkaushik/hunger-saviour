@@ -20,7 +20,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void createRestaurant(RestaurantDto restaurantDto) {
-        RestaurantEntity restaurantEntity = RestaurantMapper.convertDtoToEntity(restaurantDto);
+        RestaurantEntity restaurantEntity = RestaurantMapper.INSTANCE.convertDtoToEntity(restaurantDto);
         this.restaurantRepository.save(restaurantEntity);
     }
 

@@ -35,5 +35,5 @@ public class RestaurantEntity {
     List<String> menuTypes;
 
     @OneToMany(mappedBy = "restaurant")
-    List<RestaurantMenuEntity> restaurantMenuEntity;
+    List<RestaurantMenuEntity> menus;
 }

@@ -29,6 +29,7 @@ public class AuthAPI {
     }
 
     @PostMapping("/login")
+
     public String loginUser(@RequestBody AuthRequest authRequest) {
 
         log.debug("==========================HELLO========================================================");
@@ -41,6 +42,11 @@ public class AuthAPI {
       UserEntity userEntity =  (UserEntity) authentication.getPrincipal();
         return this.jwtService.generateToken(authentication);
 
-//        return null;
+    }
+
+    @GetMapping("/validate")
+    public Boolean validateToken(@RequestParam("token") String token) throws Exception{
+       return this.jwtService.validateToken(token);
+
     }
 }

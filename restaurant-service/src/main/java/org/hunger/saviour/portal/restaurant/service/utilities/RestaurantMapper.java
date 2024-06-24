@@ -3,31 +3,22 @@ package org.hunger.saviour.portal.restaurant.service.utilities;
 
 import org.hunger.saviour.portal.restaurant.service.dto.RestaurantDto;
 import org.hunger.saviour.portal.restaurant.service.entities.RestaurantEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
-@Component
-public class RestaurantMapper {
+@Mapper
+public interface RestaurantMapper {
 
+    public static RestaurantMapper INSTANCE = Mappers.getMapper(RestaurantMapper.class);
 
-    public static RestaurantDto convertEntityToDto(RestaurantEntity restaurantEntity) {
-        return RestaurantDto.builder()
-                .restaurantName(restaurantEntity.getRestaurantName())
-                .location(restaurantEntity.getLocation())
-                .imageUrl(restaurantEntity.getImageUrl())
-                .menuTypes(restaurantEntity.getMenuTypes())
-                .restaurantId(restaurantEntity.getRestaurantId())
-                .build();
-    }
+    @Mapping(source = "menus" ,target = "menuDtos" )
+     RestaurantDto convertEntityToDto(RestaurantEntity restaurantEntity) ;
 
-    public static RestaurantEntity convertDtoToEntity(RestaurantDto restaurantDto) {
-        return RestaurantEntity.builder()
-                .restaurantName(restaurantDto.getRestaurantName())
-                .location(restaurantDto.getLocation())
-                .imageUrl(restaurantDto.getImageUrl())
-                .menuTypes(restaurantDto.getMenuTypes())
-//                .restaurantId(restaurantEntity.getRestaurantId())
-                .build();
-    }
+    @Mapping(source = "menuDtos" ,target = "menus" )
+
+      RestaurantEntity convertDtoToEntity(RestaurantDto restaurantDto) ;
 
 
 }

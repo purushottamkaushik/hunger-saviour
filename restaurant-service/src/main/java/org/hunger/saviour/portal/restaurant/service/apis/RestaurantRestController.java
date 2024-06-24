@@ -29,4 +29,10 @@ public class RestaurantRestController {
                                                  @PathVariable("pagesize") int pageSize) {
         return this.restaurantService.getRestaurants(offset, pageSize);
     }
+
+    @GetMapping("/hello")
+
+    public String getRestaurants() {
+        return "hello from restaurant";
+    }
 }

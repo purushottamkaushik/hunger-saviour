@@ -19,8 +19,8 @@ public class RoleEntity {
 //    @Enumerated(EnumType.STRING)
     private String role;
 
-    @ManyToMany(mappedBy = "roles" ,fetch = FetchType.EAGER)
-    private List<UserEntity> userEntities;
+//    @ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//    private List<UserEntity> userEntities;
 
     public RoleEntity(String role) {
         this.role = role;
